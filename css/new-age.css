@@ -357,6 +357,14 @@ section.contact ul.list-social li.social-twitter a:hover {
   background-color: #0d95e8;
 }
 
+section.contact ul.list-social li.social-instagram a {
+  background-color: #d6249f;
+}
+
+section.contact ul.list-social li.social-instagram a:hover {
+  background-color: #c0208f;
+}
+
 section.contact ul.list-social li.social-facebook a {
   background-color: #3b5998;
 }

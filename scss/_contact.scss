@@ -28,6 +28,14 @@ section.contact {
                     }
                 }
             }
+            &.social-instagram {
+                a {
+                    background-color: $brand-instagram;
+                    &:hover {
+                        background-color: darken($brand-instagram, 5%);
+                    }
+                }
+            }
             &.social-facebook {
                 a {
                     background-color: $brand-facebook;
