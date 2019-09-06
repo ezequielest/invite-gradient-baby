@@ -1,7 +1,7 @@
 // Styling for the features section
 section.features {
     .section-heading {
-        margin-bottom: 100px;
+        margin-bottom: 20px;
         h2 {
             margin-top: 0;
         }
@@ -17,7 +17,7 @@ section.features {
     .device-container {
         margin-bottom: 100px;
         @include scroll;
-        
+
         .screen {
             overflow-y: scroll;
             .img-fluid {

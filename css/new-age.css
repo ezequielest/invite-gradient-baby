@@ -288,7 +288,7 @@ section.examples .badges .badge-link img {
 }
 
 section.features .section-heading {
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 section.features .section-heading h2 {
@@ -486,6 +486,13 @@ section.contact ul.list-social li.social-google-plus a:hover {
 
 .form .container form button {
   margin-top: 40px;
+}
+
+@media (max-width: 992px) {
+  .form .container {
+    border: transparent;
+    padding: 40px 20px;
+  }
 }
 
 footer {
