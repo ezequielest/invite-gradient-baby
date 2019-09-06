@@ -16,9 +16,20 @@ section.features {
     }
     .device-container {
         margin-bottom: 100px;
+        @include scroll;
+        
+        .screen {
+            overflow-y: scroll;
+            .img-fluid {
+                max-width: 105%;
+            }
+        }
+        
         @media(min-width: 992px) {
             margin-bottom: 0;
         }
+
+        
     }
     .feature-item {
         padding-top: 50px;
@@ -35,6 +46,7 @@ section.features {
             background: linear-gradient(to left, $theme-secondary, $theme-tertiary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            padding: 1px;
         }
     }
 }

@@ -1,5 +1,5 @@
 // Styling for the download section
-section.download {
+section.examples {
     position: relative;
     padding: 150px 0;
     h2 {
@@ -7,6 +7,18 @@ section.download {
         margin-top: 0;
     }
     .badges {
+        padding: 20px 0;
+        a {
+            color: $gray-lighter;
+            background: $theme-secondary;
+        }
+
+        a:hover {
+            color: $gray-darker;
+            border: 1px solid $gray-darker;
+            background: transparent;
+        }
+
         .badge-link {
             display: block;
             margin-bottom: 25px;

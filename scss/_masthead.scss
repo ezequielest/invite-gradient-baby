@@ -23,8 +23,17 @@ header.masthead {
         max-width: 325px;
         margin-right: auto;
         margin-left: auto;
-        .screen img {
-            border-radius: 3px;
+        @include scroll;
+        .screen {
+            overflow-y: scroll;
+
+            img {
+                border-radius: 3px;
+                border: 0;
+            }
+            .img-fluid {
+                max-width: 105%;
+            }
         }
     }
     @media (min-width: 992px) {

@@ -1,0 +1,25 @@
+.form {
+    padding: 40px 0;
+    text-align: center;
+    color: fade-out(white, .2);
+    background-color: $theme-secondary;
+
+    .container {
+        border: solid;
+        padding: 40px 0;
+        form {
+            padding: 20px;
+    
+            input {
+                border-radius: 2px;
+            }
+
+            button {
+                margin-top: 40px;
+            }
+        }
+
+    }
+
+    
+}
