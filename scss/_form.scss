@@ -1,8 +1,11 @@
+@import "./mixins";
+
 .form {
     padding: 40px 0;
     text-align: center;
     color: fade-out(white, .2);
-    background-color: $theme-secondary;
+
+    @include grandient_trans_img($theme-tertiary-dark, $theme-secondary-dark, '../img/gallery/gallery-1.jpg');
 
     .container {
         border: solid;

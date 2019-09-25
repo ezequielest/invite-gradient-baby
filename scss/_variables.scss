@@ -3,8 +3,11 @@
 // Gray and Brand Colors for use across theme
 
 $theme-primary:    #fff;
-$theme-secondary:  rgba(58, 231, 194, 0.45);
-$theme-tertiary:   rgba(255, 0, 0, 0.45);
+$theme-secondary:rgba(58, 231, 194, 0.8);
+$theme-secondary-dark:  rgba(58, 231, 194, 1);
+$theme-secondary-light:  rgba(58, 231, 194, 0.3);
+$theme-tertiary:   rgba(255, 0, 0, 0.45); //rosa
+$theme-tertiary-dark:   rgba(253, 105, 105, 0.9); //rosa
 $theme-cuarto:   #fdcc52;
 
 $gray-base:        #000;

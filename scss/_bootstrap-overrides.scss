@@ -22,7 +22,7 @@
     &:focus,
     &:active,
     &.active {
-        color: white;
+        color: $theme-secondary-dark;
         border-color: $theme-primary;
         background-color: $theme-primary;
     }

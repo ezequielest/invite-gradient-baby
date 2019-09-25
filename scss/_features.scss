@@ -9,7 +9,7 @@ section.features {
             content: '';
             width: 80%;
             height: 1px;
-            background:$theme-secondary;
+            background:$theme-secondary-light;
             display: block;
             margin: auto;
             margin-bottom: 80px;
@@ -58,8 +58,8 @@ section.features {
             font-size: 80px;
             display: block;
             margin-bottom: 15px;
-            background: -webkit-linear-gradient(to left, $theme-secondary, $theme-tertiary);
-            background: linear-gradient(to left, $theme-secondary, $theme-tertiary);
+            background: -webkit-linear-gradient(to left, $theme-secondary-dark, $theme-tertiary);
+            background: linear-gradient(to left, $theme-secondary-dark, $theme-tertiary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             padding: 1px;

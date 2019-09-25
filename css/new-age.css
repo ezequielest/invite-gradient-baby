@@ -95,7 +95,7 @@ section h2 {
 }
 
 #mainNav .navbar-nav > li > a.active {
-  color: #fff !important;
+  color: #3ae7c2 !important;
   background-color: transparent;
 }
 
@@ -243,7 +243,7 @@ header.masthead .item .header-content {
 }
 
 header.masthead .item .header-content h1 {
-  font-size: 30px;
+  font-size: 50px;
 }
 
 header.masthead .item .header-content h1 .fa-heart {
@@ -272,7 +272,7 @@ header.masthead .item .device-container ::-webkit-scrollbar-track {
 }
 
 header.masthead .item .device-container ::-webkit-scrollbar-thumb {
-  background: rgba(58, 231, 194, 0.45);
+  background: rgba(58, 231, 194, 0.8);
   border-radius: 0px;
   border: 0;
 }
@@ -320,6 +320,14 @@ header.masthead .item .device-container .screen .img-fluid {
   }
 }
 
+section.countdown-container {
+  padding: 100px 0 0 0;
+}
+
+section.countdown-container h3 {
+  margin-bottom: 30px;
+}
+
 .countdown {
   /* The countdown */
   margin-bottom: 2em;
@@ -336,7 +344,7 @@ header.masthead .item .device-container .screen .img-fluid {
   display: inline-block;
   width: 100px;
   height: 100px;
-  background: rgba(58, 231, 194, 0.45);
+  background: rgba(58, 231, 194, 0.8);
   margin: 0 4px;
   border-radius: 5px;
   position: relative;
@@ -428,7 +436,8 @@ section.examples .badges i {
   font-size: 80px;
   -webkit-animation: pulse 2s infinite;
   animation: pulse 2s infinite;
-  color: rgba(255, 0, 0, 0.45);
+  color: rgba(58, 231, 194, 0.8);
+  opacity: 0.7;
   position: absolute;
   top: 120px;
   right: 320px;
@@ -436,7 +445,7 @@ section.examples .badges i {
 
 section.examples .badges a {
   color: #eeeeee;
-  background: rgba(58, 231, 194, 0.45);
+  background: rgba(58, 231, 194, 0.8);
 }
 
 section.examples .badges a:hover {
@@ -465,6 +474,16 @@ section.examples .badges .badge-link img {
   }
 }
 
+@media (max-width: 768px) {
+  section.examples .badges img {
+    margin-bottom: 20px;
+  }
+  section.examples .badges i {
+    top: 290px;
+    right: 110px;
+  }
+}
+
 @media (min-width: 768px) {
   section.examples h2 {
     font-size: 70px;
@@ -481,7 +500,7 @@ section.features .event.line-space::before {
   content: '';
   width: 80%;
   height: 1px;
-  background: rgba(58, 231, 194, 0.45);
+  background: rgba(58, 231, 194, 0.3);
   display: block;
   margin: auto;
   margin-bottom: 80px;
@@ -524,7 +543,7 @@ section.features .device-container ::-webkit-scrollbar-track {
 }
 
 section.features .device-container ::-webkit-scrollbar-thumb {
-  background: rgba(58, 231, 194, 0.45);
+  background: rgba(58, 231, 194, 0.8);
   border-radius: 0px;
   border: 0;
 }
@@ -562,8 +581,8 @@ section.features .feature-item i {
   font-size: 80px;
   display: block;
   margin-bottom: 15px;
-  background: -webkit-gradient(linear, right top, left top, from(rgba(58, 231, 194, 0.45)), to(rgba(255, 0, 0, 0.45)));
-  background: linear-gradient(to left, rgba(58, 231, 194, 0.45), rgba(255, 0, 0, 0.45));
+  background: -webkit-gradient(linear, right top, left top, from(#3ae7c2), to(rgba(255, 0, 0, 0.45)));
+  background: linear-gradient(to left, #3ae7c2, rgba(255, 0, 0, 0.45));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 1px;
@@ -714,7 +733,9 @@ section.contact ul.list-social li.social-google-plus a:hover {
   padding: 40px 0;
   text-align: center;
   color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(58, 231, 194, 0.45);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(253, 105, 105, 0.9)), to(#3ae7c2)), url("../img/gallery/gallery-1.jpg");
+  background: linear-gradient(rgba(253, 105, 105, 0.9), #3ae7c2), url("../img/gallery/gallery-1.jpg");
+  background-size: cover;
 }
 
 .form .container {
@@ -788,7 +809,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 }
 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
-  color: white;
+  color: #3ae7c2;
   border-color: #fff;
   background-color: #fff;
 }
