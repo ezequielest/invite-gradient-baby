@@ -1,3 +1,5 @@
+@import "animations.scss";
+
 // Styling for the download section
 section.examples {
     position: relative;
@@ -8,6 +10,23 @@ section.examples {
     }
     .badges {
         padding: 20px 0;
+        position: relative;
+
+        img {
+            max-width: 200px;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        i {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+            color: $theme-tertiary;
+            position: absolute;
+            top: 120px;
+            right: 320px;
+        }
+
         a {
             color: $gray-lighter;
             background: $theme-secondary;

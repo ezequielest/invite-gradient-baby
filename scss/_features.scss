@@ -1,5 +1,21 @@
 // Styling for the features section
 section.features {
+    .event {
+        font-size: 30px;
+        margin-top: 80px;
+        margin-bottom: 40px;
+
+        &.line-space::before {
+            content: '';
+            width: 80%;
+            height: 1px;
+            background:$theme-secondary;
+            display: block;
+            margin: auto;
+            margin-bottom: 80px;
+        }
+    }
+
     .section-heading {
         margin-bottom: 20px;
         h2 {
@@ -47,6 +63,15 @@ section.features {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             padding: 1px;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin: 20px 0;
+            }
         }
     }
 }

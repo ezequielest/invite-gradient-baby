@@ -1,0 +1,78 @@
+@import './animations';
+
+// Styling for the masthead
+header.masthead {
+    @include grandient_trans($gradient_trans_from, $gradient_trans_to);
+
+    .item {
+        height: 100vh;
+        padding-top: 250px;
+        padding-bottom: 100px;
+
+        color: white;
+
+        &.bg-1 {
+            @include grandient_trans_img($gradient_trans_from, $gradient_trans_to, '../img/slider-single/slider-single-1.jpg');
+        }
+
+        &.bg-2 {
+            @include grandient_trans_img($gradient_trans_from, $gradient_trans_to, '../img/slider-single/slider-single-2.jpg');
+        }
+
+        &.bg-3 {
+            @include grandient_trans_img($gradient_trans_from, $gradient_trans_to, '../img/slider-single/slider-single-3.jpg');
+        }
+
+        .header-content {
+            max-width: 500px;
+            margin-bottom: 100px;
+
+            text-align: center;
+            h1 {
+                font-size: 30px;
+                
+                .fa-heart {
+                    animation: pulse 2s infinite;
+                }
+            }
+        }
+        .device-container {
+            max-width: 325px;
+            margin-right: auto;
+            margin-left: auto;
+            @include scroll;
+            .screen {
+                overflow-y: scroll;
+
+                img {
+                    border-radius: 3px;
+                    border: 0;
+                }
+                .img-fluid {
+                    max-width: 105%;
+                }
+            }
+        }
+        @media (min-width: 992px) {
+            min-height: 775px;
+        }
+           
+    }
+    @media (min-width: 992px) {
+        height: 100vh;
+        min-height: 775px;
+        padding-top: 0;
+        padding-bottom: 0;
+        .header-content {
+            margin-bottom: 0;
+
+            text-align: left;
+            h1 {
+                font-size: 50px;
+            }
+        }
+        .device-container {
+            max-width: 325px;
+        }
+    }
+}

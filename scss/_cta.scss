@@ -2,8 +2,9 @@
 section.cta {
     position: relative;
     padding: 250px 0;
-    background-image: url('../img/bg-cta.jpg');
+    background-image: url('../img/detalles/1.jpg');
     background-position: center;
+    background-size: cover;
     @include background-cover;
     .cta-content {
         position: relative;

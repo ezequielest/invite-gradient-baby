@@ -12,6 +12,19 @@
     background-size: cover;
 }
 
+@mixin grandient_trans($from, $to){
+    background: linear-gradient(
+        $from, 
+        $to
+    );
+}
+
+@mixin grandient_trans_img($from, $to, $img){
+    background: linear-gradient($from, $to), url($img);
+
+    background-size: cover;
+}
+
 @mixin button-variant($color, $background, $border) {
     color: $color;
     border-color: $border;
