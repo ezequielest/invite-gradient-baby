@@ -43,7 +43,7 @@
         border-color: transparent;
         background-color: transparent;
         .navbar-brand {
-            color: fade(white, 70%);
+            color: fade($theme-secondary-dark, 70%);
             &:hover,
             &:focus {
                 color: white;
@@ -73,6 +73,12 @@
                     color: $theme-primary;
                 }
             }
+        }
+    }
+
+    @media (max-width: 991px) {
+        .navbar-brand {
+            color: $gray-darker;
         }
     }
 }
