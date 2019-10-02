@@ -1,17 +1,18 @@
 @import './animations';
 
 // Styling for the masthead
-header.masthead {
+header.masthead-admin {
     position: relative;
 
     width: 100%;
     padding-top: 150px;
     padding-bottom: 100px;
+    height: 400px;
 
     color: white;
 
     @include grandient_trans_img($gradient_trans_from, $gradient_trans_to, '../img/slider-single/slider-single-1.jpg');
-    
+
     .header-content {
         max-width: 500px;
         margin-bottom: 100px;

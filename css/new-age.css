@@ -335,6 +335,123 @@ header.masthead .item .device-container .screen .img-fluid {
   }
 }
 
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  70% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  80% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  90% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+}
+
+header.masthead-admin {
+  position: relative;
+  width: 100%;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  height: 400px;
+  color: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(58, 231, 194, 0.45)), to(rgba(255, 0, 0, 0.45))), url("../img/slider-single/slider-single-1.jpg");
+  background: linear-gradient(rgba(58, 231, 194, 0.45), rgba(255, 0, 0, 0.45)), url("../img/slider-single/slider-single-1.jpg");
+  background-size: cover;
+}
+
+header.masthead-admin .header-content {
+  max-width: 500px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+header.masthead-admin .header-content h1 {
+  font-size: 30px;
+}
+
+header.masthead-admin .header-content h1 .fa-heart {
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+}
+
+header.masthead-admin .device-container {
+  max-width: 325px;
+  margin-right: auto;
+  margin-left: auto;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+header.masthead-admin .device-container ::-webkit-scrollbar {
+  width: 10px;
+  border: 0;
+}
+
+header.masthead-admin .device-container ::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background: #000;
+  border: 0;
+}
+
+header.masthead-admin .device-container ::-webkit-scrollbar-thumb {
+  background: rgba(58, 231, 194, 0.8);
+  border-radius: 0px;
+  border: 0;
+}
+
+header.masthead-admin .device-container ::-webkit-scrollbar-thumb:hover {
+  background: #CCC;
+  border: 0;
+}
+
+header.masthead-admin .device-container .screen {
+  overflow-y: scroll;
+}
+
+header.masthead-admin .device-container .screen img {
+  border-radius: 3px;
+  border: 0;
+}
+
+header.masthead-admin .device-container .screen .img-fluid {
+  max-width: 105%;
+}
+
+@media (min-width: 992px) {
+  header.masthead-admin {
+    height: 100vh;
+    min-height: 775px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead-admin .header-content {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  header.masthead-admin .header-content h1 {
+    font-size: 50px;
+  }
+  header.masthead-admin .device-container {
+    max-width: 325px;
+  }
+}
+
 section.countdown-container {
   padding: 100px 0 0 0;
 }

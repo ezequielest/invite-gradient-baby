@@ -1,3 +1,15 @@
+<?php
+  include './be/conexion.php';
+  
+  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
+  //$conexionDB->exec($query);
+
+  $query = "SELECT gift, gifted FROM lista_regalos";
+  
+  $gifts = $conexionDB->query($query);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -306,13 +318,57 @@
     </div>
   </section>
 
+  <section class="gift">
+    <div class="container">
+      <h2>Regalos</h2>
+      <ul>
+        <?php foreach($gifts as $gift) {?>
+          <li>
+              <?php echo $gift['gift'];
+              if ($gift['gifted'] == 0 ) { ?>
+                <button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
+              <?php }else {?>
+                <button class="btn">no disponible</button></li>
+              <?php }?>
+        <?php }?>    
+      </ul>
+    </div>
+
+    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Gracias por ser parte!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            estas por regalar: <span id="youAreGifting"></span>
+            <form id="formGift" action="">
+              <input type="text" id="name" name="name" placeholder="Nombre y Apellido">
+              <input type="hidden" id="gift" name="gift">
+              <input type="hidden" id="action" name="action" value="update">
+              <button>Regalar</button>
+              <div class="gift-response"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="form" id="asistencia">
     <div class="container">
       <div class="row">
         <div class="col-md-8 mx-auto">
           <h2 class="section-heading">Confirma tu asistencia</h2>
           <p></p>
-          <form action="">
+          <form id="formAssistence" action="">
               <div class="form-group">
                 <label for="">Nombre y Apellido (*)</label>
                 <input id="name" name="name" type="text" class="form-control" required>
@@ -354,7 +410,7 @@
   <script src="js/new-age.min.js"></script>
 
   <script>
-    $("form").on("submit", function(event) {
+    $("formAssistence").on("submit", function(event) {
       event.preventDefault();
 
       var formData = $(this).serialize();
@@ -369,6 +425,7 @@
         res = JSON.parse(res)
         if (res.thereIsError == false) {
             $('.rta').html('Mensaje enviado con éxito');
+            ;
         } else {
             $('.rta').html('Error, intentelo nuevamente');
         }
@@ -379,6 +436,42 @@
     });
   </script>
 
+<script>
+    $("#formGift").on("submit", function(event) {
+      event.preventDefault();
+
+      var formData = $(this).serialize();
+      $('.gift-response').html('confirmando regalo...');
+
+      $.ajax({
+          method: "POST",
+          url: "./be/send-gift.php",
+          data: formData
+        })
+      .done(function( res ) {
+        console.log(res)
+        res = JSON.parse(res);
+        if (res.thereIsError == false) {
+            $('.gift-response').html('Regalo confirmado con exito');
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+        } else {
+            $('.gift-response').html('Error, intentelo nuevamente');
+        }
+      })
+      .fail(function (res) {
+          $('.gift-response').html('Error de servidor, intentelo nuevamente más tarde');
+      });
+    });
+  </script>
+
+  <script>
+    function gifting(gift) {
+      $('#youAreGifting').html(gift);
+      $('#gift').val(gift);
+    }
+  </script>
   
   <script>
       simplyCountdown('.countdown', {
