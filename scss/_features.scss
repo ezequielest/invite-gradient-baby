@@ -1,5 +1,9 @@
 // Styling for the features section
 section.features {
+    img {
+        border-radius: 2px;
+    }
+
     .event {
         font-size: 30px;
         margin-top: 80px;
@@ -72,6 +76,12 @@ section.features {
             li {
                 margin: 20px 0;
             }
+        }
+    }
+
+    @media (max-width: 992px) {
+        img {
+            display: none;
         }
     }
 }

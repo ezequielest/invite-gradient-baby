@@ -1,3 +1,15 @@
+<?php
+  include './be/conexion.php';
+  
+  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
+  //$conexionDB->exec($query);
+
+  $query = "SELECT gift, gifted FROM lista_regalos";
+  
+  $gifts = $conexionDB->query($query);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +107,7 @@
     <div class="item bg-1">
       <div class="col-lg-12 my-auto">
         <div class="header-content mx-auto text-center">
-          <h1 class="mb-5">BELEN Y NICOLAS <i class="fas fa-heart"></i></h1>
+          <h1 class="mb-5">JULI & SANTI <i class="fas fa-heart"></i></h1>
           <h3 class="mb-5">25.9.20</h3>
           <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Save the date</a>
         </div>
@@ -192,7 +204,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.578146231236!2d-57.53011401893144!3d-38.0257362049552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584ddb588e8877f%3A0x4460050e9623c912!2sLa%20Normandina!5e0!3m2!1sen!2sar!4v1569418788568!5m2!1sen!2sar" width="350" height="290" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.578146231236!2d-57.53011401893144!3d-38.0257362049552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584ddb588e8877f%3A0x4460050e9623c912!2sLa%20Normandina!5e0!3m2!1sen!2sar!4v1569418788568!5m2!1sen!2sar" width="300" height="290" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                 </div>
               </div>
             </div>
@@ -227,7 +239,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.578146231236!2d-57.53011401893144!3d-38.0257362049552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584ddb588e8877f%3A0x4460050e9623c912!2sLa%20Normandina!5e0!3m2!1sen!2sar!4v1569418788568!5m2!1sen!2sar" width="350" height="290" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.578146231236!2d-57.53011401893144!3d-38.0257362049552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584ddb588e8877f%3A0x4460050e9623c912!2sLa%20Normandina!5e0!3m2!1sen!2sar!4v1569418788568!5m2!1sen!2sar" width="300" height="290" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -306,13 +318,57 @@
     </div>
   </section>
 
+  <section class="gift">
+    <div class="container">
+      <h2>Regalos</h2>
+      <ul>
+        <?php foreach($gifts as $gift) {?>
+          <li>
+              <?php echo $gift['gift'];
+              if ($gift['gifted'] == 0 ) { ?>
+                <button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
+              <?php }else {?>
+                <button class="btn">no disponible</button></li>
+              <?php }?>
+        <?php }?>    
+      </ul>
+    </div>
+
+    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Gracias por ser parte!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            estas por regalar: <span id="youAreGifting"></span>
+            <form id="formGift" action="">
+              <input type="text" id="name" name="name" placeholder="Nombre y Apellido">
+              <input type="hidden" id="gift" name="gift">
+              <input type="hidden" id="action" name="action" value="update">
+              <button>Regalar</button>
+              <div class="gift-response"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="form" id="asistencia">
     <div class="container">
       <div class="row">
         <div class="col-md-8 mx-auto">
           <h2 class="section-heading">Confirma tu asistencia</h2>
           <p></p>
-          <form action="">
+          <form id="formAssistence" action="">
               <div class="form-group">
                 <label for="">Nombre y Apellido (*)</label>
                 <input id="name" name="name" type="text" class="form-control" required>
@@ -354,7 +410,7 @@
   <script src="js/new-age.min.js"></script>
 
   <script>
-    $("form").on("submit", function(event) {
+    $("formAssistence").on("submit", function(event) {
       event.preventDefault();
 
       var formData = $(this).serialize();
@@ -369,6 +425,7 @@
         res = JSON.parse(res)
         if (res.thereIsError == false) {
             $('.rta').html('Mensaje enviado con éxito');
+            ;
         } else {
             $('.rta').html('Error, intentelo nuevamente');
         }
@@ -379,6 +436,42 @@
     });
   </script>
 
+<script>
+    $("#formGift").on("submit", function(event) {
+      event.preventDefault();
+
+      var formData = $(this).serialize();
+      $('.gift-response').html('confirmando regalo...');
+
+      $.ajax({
+          method: "POST",
+          url: "./be/send-gift.php",
+          data: formData
+        })
+      .done(function( res ) {
+        console.log(res)
+        res = JSON.parse(res);
+        if (res.thereIsError == false) {
+            $('.gift-response').html('Regalo confirmado con exito');
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+        } else {
+            $('.gift-response').html('Error, intentelo nuevamente');
+        }
+      })
+      .fail(function (res) {
+          $('.gift-response').html('Error de servidor, intentelo nuevamente más tarde');
+      });
+    });
+  </script>
+
+  <script>
+    function gifting(gift) {
+      $('#youAreGifting').html(gift);
+      $('#gift').val(gift);
+    }
+  </script>
   
   <script>
       simplyCountdown('.countdown', {

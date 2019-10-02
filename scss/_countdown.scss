@@ -55,4 +55,18 @@ section.countdown-container {
             font-size: 12px; 
         }
     }
-}
+
+    @media (max-width: 992px) {
+
+        > .simply-section { 
+            width: 80px;
+            height: 100px; 
+            
+            > div {
+                height: 90px;
+                width: 80px;
+            }
+        }
+
+    }
+} 
