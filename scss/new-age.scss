@@ -1,9 +1,15 @@
+//GLOBALS
 @import "variables.scss";
 @import "mixins.scss";
 @import "global.scss";
+
+//ADMIN
+@import "admin_simple_masthead.scss";
+@import "admin_table_gift.scss";
+
+//USERS
 @import "navbar.scss";
 @import "slider_masthead.scss";
-@import "simple_masthead_admin.scss";
 @import "countdown.scss";
 @import "examples.scss";
 @import "features.scss";
@@ -12,6 +18,7 @@
 @import "timeline.scss";
 @import "contact.scss";
 @import "form.scss";
+@import "gift.scss";
 @import "footer.scss";
 @import "bootstrap-overrides.scss";
 

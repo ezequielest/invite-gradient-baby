@@ -320,43 +320,52 @@
 
   <section class="gift">
     <div class="container">
-      <h2>Regalos</h2>
-      <ul>
-        <?php foreach($gifts as $gift) {?>
-          <li>
-              <?php echo $gift['gift'];
-              if ($gift['gifted'] == 0 ) { ?>
-                <button class="btn" data-toggle="modal" data-target="#exampleModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
-              <?php }else {?>
-                <button class="btn">no disponible</button></li>
-              <?php }?>
-        <?php }?>    
-      </ul>
+      <h2 class="section-heading text-center">Lista de regalos</h2>
+        <div class="gift-container">
+          <?php foreach($gifts as $gift) {
+            if ($gift['gifted'] == 0 ) { ?>
+            <div class="item available">
+              <?php echo $gift['gift']; ?>
+              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
+            </div>
+            <?php }else {?>
+              <div class="item not-available">
+                <?php echo $gift['gift']; ?>
+                <span class="btn no-dispo">No disponible</span></li>
+              </div>
+            <?php }?>
+          <?php }?>   
+        </div>
     </div>
 
-    <div id="exampleModal" class="modal" tabindex="-1" role="dialog">
+
+    <div id="giftModal" class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+
           <div class="modal-header">
             <h5 class="modal-title">Gracias por ser parte!</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            estas por regalar: <span id="youAreGifting"></span>
-            <form id="formGift" action="">
-              <input type="text" id="name" name="name" placeholder="Nombre y Apellido">
-              <input type="hidden" id="gift" name="gift">
-              <input type="hidden" id="action" name="action" value="update">
-              <button>Regalar</button>
-              <div class="gift-response"></div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+
+          <form id="formGift" action="">
+            <div class="modal-body">
+              <h6>Estas por regalar: <span id="youAreGifting"></span></h6>
+              <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
+              
+                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre y Apellido" required>
+                <input type="hidden" id="gift" name="gift">
+                <input type="hidden" id="action" name="action" value="update">
+                <div class="gift-response"></div>
+              
+            </div>
+            <div class="modal-footer">
+              <button id="sendGift" type="submit" class="btn btn-primary">Regalar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -368,7 +377,7 @@
         <div class="col-md-8 mx-auto">
           <h2 class="section-heading">Confirma tu asistencia</h2>
           <p></p>
-          <form id="formAssistence" action="">
+          <form id="formAssistence" action="" name="contact" role="form">
               <div class="form-group">
                 <label for="">Nombre y Apellido (*)</label>
                 <input id="name" name="name" type="text" class="form-control" required>
@@ -410,7 +419,7 @@
   <script src="js/new-age.min.js"></script>
 
   <script>
-    $("formAssistence").on("submit", function(event) {
+    $("#formAssistence").on("submit", function(event) {
       event.preventDefault();
 
       var formData = $(this).serialize();

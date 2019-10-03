@@ -4,10 +4,6 @@
   //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
   //$conexionDB->exec($query);
 
-  $query = "SELECT gift, gifted, gifted_by FROM lista_regalos WHERE gifted = 1";
-  
-  $gifts = $conexionDB->query($query);
-
 ?>
 
 
@@ -94,8 +90,8 @@
 </nav>
 
 <header class="masthead-admin">
-    <div class="container h-100">
-        <div class="row h-100">
+    <div class="container">
+        <div class="row">
         <div class="col-lg-12 my-auto">
             <div class="header-content mx-auto  text-center">
                 <h1 class="mb-5">JOAQUIN Y MELISA <i class="fas fa-heart"></i></h1>
@@ -106,22 +102,76 @@
     </div>
 </header>
 
-<section class="examples bg-primary text-center" id="nosotros">
+<section class="table-gift-admin bg-primary text-center" id="tableGift">
   <div class="container">
     <div class="row">
       <div class="col-md-12 mx-auto">
-        Lista de regalos
-        <ul>
-        <?php foreach($gifts as $gift) {?>
-          <li>
-            <?php echo $gift['gift']; ?> por <?php echo $gift['gifted_by']; ?>  
-          </li>
-        <?php }?>    
-      </ul>
+
+        <button class="btn" onclick="addGift()">Agregar regalo</button>
+        <div class="table-container">
+          <h3>Regalos realizados por los invitados</h3>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th>Regalo</th>
+                <th>Realizado por</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                $query = "SELECT id, gift, gifted, gifted_by FROM lista_regalos WHERE gifted = 1";
+              
+                $gifts = $conexionDB->query($query);
+              ?>
+              <?php foreach($gifts as $gift) {?>
+              <tr>
+                <td><?php echo $gift['gift']; ?></td>
+                <td><?php echo $gift['gifted_by']; ?></td>
+                <td>
+                  <button class="btn" onclick=freeGift(<?php echo $gift['id']; ?>)>Liberar</button>
+                </td> 
+              </tr>
+              <?php }?>  
+            </tbody>
+          </table>
+        </div>
+       
+        <div>
+          <h3>Regalos sin confirmar</h3>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th>Regalo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                $query = "SELECT id, gift, gifted FROM lista_regalos WHERE gifted = 0";
+
+                $gifts = $conexionDB->query($query);
+              ?>
+              <?php foreach($gifts as $gift) {?>
+                <tr>
+                  <td><?php echo $gift['gift']; ?></td>
+                  <td>
+                    <button class="btn" onclick=editGift(<?php echo $gift['id']; ?>)>Editar</button>
+                    <button class="btn" onclick=deleteGift(<?php echo $gift['id']; ?>)>Eliminar</button>
+                  </td>
+                </tr>
+              <?php }?>   
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+
+
+
 
 <footer>
 <div class="container">
@@ -136,6 +186,41 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+
+  <script>
+    function addGift() {
+      $.ajax({
+          method: "POST",
+          url: "./be/send-gift.php",
+          data: formData
+        })
+      .done(function( res ) {
+        res = JSON.parse(res);
+        if (res.thereIsError == false) {
+            $('.gift-response').html('Regalo agregado con éxito');
+        } else {
+            $('.gift-response').html('Error, intentelo nuevamente');
+        }
+      })
+      .fail(function (res) {
+          $('.gift-response').html('Error de servidor, intentelo nuevamente más tarde');
+      });
+    }
+
+   function freeGift(idGift) {
+    console.log('free ', idGift)
+   }
+
+   function deleteGift(idGift) {
+    console.log('delete ', idGift)
+   }
+
+   function editGift(idGift) {
+    console.log('edit ', idGift)
+   }
+  </script>
+
 
 <script>
     $(document).ready(function(){

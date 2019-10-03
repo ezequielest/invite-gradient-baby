@@ -8,6 +8,9 @@ header.masthead-admin {
     padding-top: 150px;
     padding-bottom: 100px;
     height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     color: white;
 
@@ -44,9 +47,9 @@ header.masthead-admin {
         }
     }
     @media (min-width: 992px) {
-        height: 100vh;
-        min-height: 775px;
-        padding-top: 0;
+        height: 300px;
+        //min-height: 775px;
+        padding-top: 70px;
         padding-bottom: 0;
         .header-content {
             margin-bottom: 0;

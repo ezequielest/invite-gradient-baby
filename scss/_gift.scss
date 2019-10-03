@@ -1,0 +1,51 @@
+section.gift {
+    background-color: $gray-lighter;
+
+    .section-heading {
+        margin-bottom: 40px;
+    }
+
+    .gift-container {
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .item {
+            padding: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 30%;  /* Or whatever */
+            margin-bottom: 20px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            &.available {
+                background-color: $theme-secondary;
+                color: $theme-primary;
+                border: 1px solid $theme-secondary-light;
+            }
+
+            &.not-available {
+                padding: 23px 0;
+
+                .btn {                
+                    font-size: 12px;
+                }
+
+            }
+        }
+    }
+
+    #giftModal {
+        p {
+            font-size: 12px;
+        }
+    }
+
+
+}
