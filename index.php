@@ -1,15 +1,3 @@
-<?php
-  include './be/conexion.php';
-  
-  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
-  //$conexionDB->exec($query);
-
-  $query = "SELECT gift, gifted FROM lista_regalos";
-  
-  $gifts = $conexionDB->query($query);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -322,19 +310,15 @@
     <div class="container">
       <h2 class="section-heading text-center">Lista de regalos</h2>
         <div class="gift-container">
-          <?php foreach($gifts as $gift) {
-            if ($gift['gifted'] == 0 ) { ?>
             <div class="item available">
-              <?php echo $gift['gift']; ?>
-              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
+              Heladera
+              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="">regalar</button></li>
             </div>
-            <?php }else {?>
-              <div class="item not-available">
-                <?php echo $gift['gift']; ?>
-                <span class="btn no-dispo">No disponible</span></li>
-              </div>
-            <?php }?>
-          <?php }?>   
+
+            <div class="item not-available">
+              Acolchado
+              <span class="btn no-dispo">No disponible</span></li>
+            </div>
         </div>
     </div>
 

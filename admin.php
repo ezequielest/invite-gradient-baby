@@ -1,12 +1,3 @@
-<?php
-  include './be/conexion.php';
-  
-  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
-  //$conexionDB->exec($query);
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,20 +110,13 @@
               </tr>
             </thead>
             <tbody>
-              <?php 
-                $query = "SELECT id, gift, gifted, gifted_by FROM lista_regalos WHERE gifted = 1";
-              
-                $gifts = $conexionDB->query($query);
-              ?>
-              <?php foreach($gifts as $gift) {?>
               <tr>
-                <td><?php echo $gift['gift']; ?></td>
-                <td><?php echo $gift['gifted_by']; ?></td>
+                <td></td>
+                <td></td>
                 <td>
-                  <button class="btn" onclick=freeGift(<?php echo $gift['id']; ?>)>Liberar</button>
+                  <button class="btn" onclick="freeGift()">Liberar</button>
                 </td> 
               </tr>
-              <?php }?>  
             </tbody>
           </table>
         </div>
@@ -147,20 +131,13 @@
               </tr>
             </thead>
             <tbody>
-              <?php 
-                $query = "SELECT id, gift, gifted FROM lista_regalos WHERE gifted = 0";
-
-                $gifts = $conexionDB->query($query);
-              ?>
-              <?php foreach($gifts as $gift) {?>
-                <tr>
-                  <td><?php echo $gift['gift']; ?></td>
-                  <td>
-                    <button class="btn" onclick=editGift(<?php echo $gift['id']; ?>)>Editar</button>
-                    <button class="btn" onclick=deleteGift(<?php echo $gift['id']; ?>)>Eliminar</button>
-                  </td>
-                </tr>
-              <?php }?>   
+              <tr>
+                <td></td>
+                <td>
+                  <button class="btn" onclick="editGift()">Editar</button>
+                  <button class="btn" onclick="deleteGift()">Eliminar</button>
+                </td>
+                </tr> 
             </tbody>
           </table>
         </div>
@@ -169,16 +146,11 @@
   </div>
 </section>
 
-
-
-
-
 <footer>
 <div class="container">
     <p>&copy; Invite 2019 | <a href="http://www.invite.blur.com.ar/">invite.blur.com</a></p>
 </div>
 </footer>
-
 
 <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/simplycountdown/simplyCountdown.min.js"></script>
@@ -207,18 +179,6 @@
           $('.gift-response').html('Error de servidor, intentelo nuevamente más tarde');
       });
     }
-
-   function freeGift(idGift) {
-    console.log('free ', idGift)
-   }
-
-   function deleteGift(idGift) {
-    console.log('delete ', idGift)
-   }
-
-   function editGift(idGift) {
-    console.log('edit ', idGift)
-   }
   </script>
 
 
