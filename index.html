@@ -306,53 +306,8 @@
     </div>
   </section>
 
-  <section class="gift">
-    <div class="container">
-      <h2 class="section-heading text-center">Lista de regalos</h2>
-        <div class="gift-container">
-            <div class="item available">
-              Heladera
-              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="">regalar</button></li>
-            </div>
-
-            <div class="item not-available">
-              Acolchado
-              <span class="btn no-dispo">No disponible</span></li>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="giftModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <h5 class="modal-title">Gracias por ser parte!</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <form id="formGift" action="">
-            <div class="modal-body">
-              <h6>Estas por regalar: <span id="youAreGifting"></span></h6>
-              <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
-              
-                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre y Apellido" required>
-                <input type="hidden" id="gift" name="gift">
-                <input type="hidden" id="action" name="action" value="update">
-                <div class="gift-response"></div>
-              
-            </div>
-            <div class="modal-footer">
-              <button id="sendGift" type="submit" class="btn btn-primary">Regalar</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+  <section id="gift" class="gift">
+    <gift-list></gift-list>
   </section>
 
   <section class="form" id="asistencia">
@@ -398,6 +353,8 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   
   <!-- Custom scripts for this template -->
   <script src="js/new-age.min.js"></script>
@@ -502,6 +459,92 @@
         items: 1
       });
     });
+  </script>
+
+  <script>
+  Vue.component('gift-list', {
+    props:['nose'],
+    template: 
+    `
+    <div class="general-gift-list">
+      <div class="container">
+        <h2 class="section-heading text-center">Lista de regalos</h2>
+        <div class="gift-container">
+          <div class="item available" v-for="gift in gifts">
+            {{gift.giftDescription}}
+            <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" v-on:click="selectGift(gift)">regalar</button></li>
+          </div>
+        </div>
+      </div>
+    
+      <div id="giftModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Gracias por ser parte!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <form id="formGift" action="">
+              <div class="modal-body">
+                <h6>Estas por regalar: {{ giftSelected }}</h6>
+                <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
+                
+                  
+                  <select id="select" class="form-control" required>
+                    <option v-for="guest in guests">{{ guest.description }}</option>
+                  </select>
+                  <div class="gift-response"></div>
+                
+              </div>
+              <div class="modal-footer">
+                <button id="sendGift" type="submit" class="btn btn-primary">Regalar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>`,
+    data: function() {
+      return {
+        gifts: null,
+        guest: null,
+        giftSelected: ""
+      }
+    },
+    methods: {
+      selectGift: function(gift) {
+        this.giftSelected = gift.giftDescription;
+      },
+      getGuest: function(){
+        axios
+        .get('http://localhost:3000/guest')
+        .then(res => {
+          this.guest = res.data.response
+          console.log(res.data.response) 
+        })
+      },
+      gift: function(id) {
+        axios
+          .post('http://localhost:3000/gift-list', payload)
+      }
+    },
+    computed: {},
+    mounted () {
+    axios
+      .get('http://localhost:3000/gift-list')
+      .then(res => {
+        this.gifts = res.data.response
+        console.log(res.data.response) 
+      })
+    }
+  })
+
+  new Vue({ el: '#gift' })
   </script>
 </body>
 
