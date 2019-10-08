@@ -470,14 +470,21 @@
       <div class="container">
         <h2 class="section-heading text-center">Lista de regalos</h2>
         <div class="gift-container">
-          <div class="item available" v-for="gift in gifts">
-            {{gift.giftDescription}}
-            <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" v-on:click="selectGift(gift)">regalar</button></li>
+          <div class="item" v-for="gift in giftList" v-bind:class="{'available': !gift.gifted, 'not-available': gift.gifted}">  
+            <v-template v-if="gift.gifted">
+              {{gift.giftDescription}} - YA LO TIENEN
+            </v-template>
+            <v-template v-if="!gift.gifted">
+              {{gift.giftDescription}}
+              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" v-on:click="selectGift(gift)">regalar</button></li>
+            </v-template>
+             
           </div>
+        
         </div>
       </div>
     
-      <div id="giftModal" class="modal" tabindex="-1" role="dialog">
+      <div id="giftModal" class="modal" tabindex="-1" role="dialog" v-if="giftSelected">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
 
@@ -488,49 +495,71 @@
               </button>
             </div>
 
-            <form id="formGift" action="">
-              <div class="modal-body">
-                <h6>Estas por regalar: {{ giftSelected }}</h6>
-                <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
-                
-                  
-                  <select id="select" class="form-control" required>
-                    <option v-for="guest in guests">{{ guest.description }}</option>
-                  </select>
-                  <div class="gift-response"></div>
-                
-              </div>
-              <div class="modal-footer">
-                <button id="sendGift" type="submit" class="btn btn-primary">Regalar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              </div>
-            </form>
+            <div class="modal-body">
+              <h6>Estas por regalar: {{ giftSelected.description }}</h6>
+              <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
+              
+                <select id="select" class="form-control" required>
+                  <option disabled selected>Quién se lo regala?</option>
+                  <option v-for="guest in guests" v-click="selectGuest(guest)">{{ guest.description }}</option>
+                </select>
+                <div class="gift-response"></div>
+              
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" v-on:click="doGift()">Regalar</button>
+              <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+            
           </div>
         </div>
       </div>
     </div>`,
     data: function() {
       return {
-        gifts: null,
-        guest: null,
-        giftSelected: ""
+        giftList: null,
+        guests: null,
+        guestSelected: null,
+        giftSelected: null
       }
     },
     methods: {
       selectGift: function(gift) {
-        this.giftSelected = gift.giftDescription;
+        this.giftSelected = {
+          id: gift.giftId,
+          description: gift.giftDescription
+        }
+
+        console.log(this.giftSelected)
+
+        this.getGuest();
       },
       getGuest: function(){
         axios
         .get('http://localhost:3000/guest')
         .then(res => {
-          this.guest = res.data.response
+          this.guests = res.data.response
           console.log(res.data.response) 
         })
       },
       gift: function(id) {
         axios
           .post('http://localhost:3000/gift-list', payload)
+      },
+      selectGuest: function(guest){
+        this.guestSelected = guest;
+      },
+      doGift: function() {
+        var payload = {
+          guest: this.guestSelected,
+          gift: this.giftSelected
+        }
+        axios
+          .put('http://localhost:3000/gift-list', payload)
+            .then(res => {
+              this.giftList = res.data.response;
+              $('#giftModal').modal('hide')
+            })
       }
     },
     computed: {},
@@ -538,7 +567,7 @@
     axios
       .get('http://localhost:3000/gift-list')
       .then(res => {
-        this.gifts = res.data.response
+        this.giftList = res.data.response
         console.log(res.data.response) 
       })
     }
