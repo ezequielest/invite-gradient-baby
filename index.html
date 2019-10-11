@@ -1,7 +1,10 @@
+<<<<<<< HEAD:index.html
 <?php
   include './be/class/gift.class.php';
 ?>
 
+=======
+>>>>>>> 455bbd3af958babb6854a6411f319af437ec68c7:index.php
 <!DOCTYPE html>
 <html lang="en">
 
@@ -310,6 +313,7 @@
     </div>
   </section>
 
+<<<<<<< HEAD:index.html
   <section class="gift">
     <div class="container">
       <h2 class="section-heading text-center">Lista de regalos</h2>
@@ -367,6 +371,10 @@
         </div>
       </div>
     </div>
+=======
+  <section id="gift" class="gift">
+    <gift-list></gift-list>
+>>>>>>> 455bbd3af958babb6854a6411f319af437ec68c7:index.php
   </section>
 
   <section class="form" id="asistencia">
@@ -412,6 +420,8 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   
   <!-- Custom scripts for this template -->
   <script src="js/new-age.min.js"></script>
@@ -520,6 +530,121 @@
         items: 1
       });
     });
+  </script>
+
+  <script>
+  Vue.component('gift-list', {
+    props:['nose'],
+    template: 
+    `
+    <div class="general-gift-list">
+      <div class="container">
+        <h2 class="section-heading text-center">Lista de regalos</h2>
+        <div class="gift-container">
+          <div class="item" v-for="gift in giftList" v-bind:class="{'available': !gift.gifted, 'not-available': gift.gifted}">  
+            <v-template v-if="gift.gifted">
+              {{gift.giftDescription}} - YA LO TIENEN
+            </v-template>
+            <v-template v-if="!gift.gifted">
+              {{gift.giftDescription}}
+              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" v-on:click="selectGift(gift)">regalar</button></li>
+            </v-template>
+             
+          </div>
+        
+        </div>
+      </div>
+    
+      <div id="giftModal" class="modal" tabindex="-1" role="dialog" v-if="giftSelected">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Gracias por ser parte!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <h6>Estas por regalar: {{ giftSelected.description }}</h6>
+              <p>Recorga que tu regalo es para confirmarle a los novios que vos los vas a ayudar con este regalo. Depende de vos como adquirirlo</p>
+              
+                <select id="select" class="form-control" required>
+                  <option disabled selected>Quién se lo regala?</option>
+                  <option v-for="guest in guests" v-click="selectGuest(guest)">{{ guest.description }}</option>
+                </select>
+                <div class="gift-response"></div>
+              
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" v-on:click="doGift()">Regalar</button>
+              <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>`,
+    data: function() {
+      return {
+        giftList: null,
+        guests: null,
+        guestSelected: null,
+        giftSelected: null
+      }
+    },
+    methods: {
+      selectGift: function(gift) {
+        this.giftSelected = {
+          id: gift.giftId,
+          description: gift.giftDescription
+        }
+
+        console.log(this.giftSelected)
+
+        this.getGuest();
+      },
+      getGuest: function(){
+        axios
+        .get('http://localhost:3000/guest')
+        .then(res => {
+          this.guests = res.data.response
+          console.log(res.data.response) 
+        })
+      },
+      gift: function(id) {
+        axios
+          .post('http://localhost:3000/gift-list', payload)
+      },
+      selectGuest: function(guest){
+        this.guestSelected = guest;
+      },
+      doGift: function() {
+        var payload = {
+          guest: this.guestSelected,
+          gift: this.giftSelected
+        }
+        axios
+          .put('http://localhost:3000/gift-list', payload)
+            .then(res => {
+              this.giftList = res.data.response;
+              $('#giftModal').modal('hide')
+            })
+      }
+    },
+    computed: {},
+    mounted () {
+    axios
+      .get('http://localhost:3000/gift-list')
+      .then(res => {
+        this.giftList = res.data.response
+        console.log(res.data.response) 
+      })
+    }
+  })
+
+  new Vue({ el: '#gift' })
   </script>
 </body>
 
