@@ -1,13 +1,5 @@
 <?php
-  include './be/conexion.php';
-  
-  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
-  //$conexionDB->exec($query);
-
-  $query = "SELECT gift, gifted FROM lista_regalos";
-  
-  $gifts = $conexionDB->query($query);
-
+  include './be/class/gift.class.php';
 ?>
 
 <!DOCTYPE html>
@@ -322,18 +314,24 @@
     <div class="container">
       <h2 class="section-heading text-center">Lista de regalos</h2>
         <div class="gift-container">
-          <?php foreach($gifts as $gift) {
-            if ($gift['gifted'] == 0 ) { ?>
-            <div class="item available">
-              <?php echo $gift['gift']; ?>
-              <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
-            </div>
-            <?php }else {?>
-              <div class="item not-available">
-                <?php echo $gift['gift']; ?>
-                <span class="btn no-dispo">No disponible</span></li>
-              </div>
-            <?php }?>
+          <?php 
+          
+            $giftObj = new Gift();
+
+            $gifts = $giftObj->selectAll();
+  
+            foreach($gifts as $gift) {
+                if ($gift['gifted'] == 0 ) { ?>
+                <div class="item available">
+                  <?php echo $gift['gift']; ?>
+                  <button class="btn btn-outline btn-xl" data-toggle="modal" data-target="#giftModal" onclick="gifting('<?php echo $gift['gift'] ?>')">regalar</button></li>
+                </div>
+                <?php }else {?>
+                  <div class="item not-available">
+                    <?php echo $gift['gift']; ?>
+                    <span class="btn no-dispo">No disponible</span></li>
+                  </div>
+                <?php }?>
           <?php }?>   
         </div>
     </div>
@@ -422,7 +420,8 @@
     $("#formAssistence").on("submit", function(event) {
       event.preventDefault();
 
-      var formData = $(this).serialize();
+      var formData = $(this).serialize
+     
       $('.rta').html('Enviando mensaje...');
 
       $.ajax({
@@ -434,7 +433,6 @@
         res = JSON.parse(res)
         if (res.thereIsError == false) {
             $('.rta').html('Mensaje enviado con éxito');
-            ;
         } else {
             $('.rta').html('Error, intentelo nuevamente');
         }
@@ -450,11 +448,15 @@
       event.preventDefault();
 
       var formData = $(this).serialize();
+      var method = '&method=doGift';
+      
+      formData = formData + method;
+      
       $('.gift-response').html('confirmando regalo...');
 
       $.ajax({
           method: "POST",
-          url: "./be/send-gift.php",
+          url: "./be/controller/giftController.php",
           data: formData
         })
       .done(function( res ) {
@@ -462,9 +464,9 @@
         res = JSON.parse(res);
         if (res.thereIsError == false) {
             $('.gift-response').html('Regalo confirmado con exito');
-            setTimeout(() => {
+            /*setTimeout(() => {
               location.reload();
-            }, 2000);
+            }, 2000);*/
         } else {
             $('.gift-response').html('Error, intentelo nuevamente');
         }

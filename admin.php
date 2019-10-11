@@ -1,9 +1,5 @@
 <?php
-  include './be/conexion.php';
-  
-  //$query = "INSERT INTO lista_regalos (gift) VALUES('Heladera')";
-  //$conexionDB->exec($query);
-
+  include './be/class/gift.class.php';
 ?>
 
 
@@ -120,26 +116,27 @@
             </thead>
             <tbody>
               <?php 
-                $query = "SELECT id, gift, gifted, gifted_by FROM lista_regalos WHERE gifted = 1";
-              
-                $gifts = $conexionDB->query($query);
+                $giftObj = new Gift();
               ?>
-              <?php foreach($gifts as $gift) {?>
-              <tr>
+              <?php 
+              $gifts = $giftObj->getGiftedByState(1);
+              foreach($gifts as $gift) {?>
+              <tr class="liberar-row-<?php echo $gift['id'] ?>">
                 <td><?php echo $gift['gift']; ?></td>
                 <td><?php echo $gift['gifted_by']; ?></td>
                 <td>
-                  <button class="btn" onclick=freeGift(<?php echo $gift['id']; ?>)>Liberar</button>
+                  <button class="btn liberar" data-id="<?php echo $gift['id'] ?>">Liberar</button>
                 </td> 
               </tr>
               <?php }?>  
             </tbody>
           </table>
+          <div class="free-response"></div>
         </div>
        
         <div>
           <h3>Regalos sin confirmar</h3>
-          <table class="table">
+          <table class="table no-gift">
             <thead class="thead-light">
               <tr>
                 <th>Regalo</th>
@@ -148,14 +145,13 @@
             </thead>
             <tbody>
               <?php 
-                $query = "SELECT id, gift, gifted FROM lista_regalos WHERE gifted = 0";
-
-                $gifts = $conexionDB->query($query);
+                $gifts = $giftObj->getGiftedByState(0);
               ?>
               <?php foreach($gifts as $gift) {?>
                 <tr>
                   <td><?php echo $gift['gift']; ?></td>
                   <td>
+                    <button class="btn" onclick=addGift(<?php echo $gift['id']; ?>)>Agregar</button>
                     <button class="btn" onclick=editGift(<?php echo $gift['id']; ?>)>Editar</button>
                     <button class="btn" onclick=deleteGift(<?php echo $gift['id']; ?>)>Eliminar</button>
                   </td>
@@ -181,15 +177,61 @@
 
 
 <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/simplycountdown/simplyCountdown.min.js"></script>
-  <script src="vendor/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="vendor/simplycountdown/simplyCountdown.min.js"></script>
+<script src="vendor/owl-carousel/owl.carousel.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 
   <script>
+    $(function () {
+        $('.liberar').on('click', function () {
+            console.log('click boton');
+
+            idGift = $(this).data("id");
+
+            var formData = {
+                'id': idGift,
+                'method': 'freeGift'
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "./be/controller/giftController.php",
+                data: formData
+            })
+            .done(function( res ) {
+                console.log(res)
+                res = JSON.parse(res);
+                if (res.thereIsError == false) {
+                    $('.liberar-row-' + idGift).fadeOut();
+                    
+                    var newRow = 
+                       `<tr class="liberar-row-${idGift}">
+                            <td>${res.data.gift}</td>
+                            <td>
+                              <button class="btn liberar" data-id="${idGift}">Agregar</button>
+                                <button class="btn liberar" data-id="${idGift}">Editar</button>
+                                <button class="btn liberar" data-id="${idGift}">Liberar</button>
+                            </td>
+                        </tr>`;
+                    console.log(newRow);
+                    var actual = $('.no-gift tbody').html();
+                    $('.no-gift tbody').html(actual + newRow);
+                                
+                } else {
+                    $('.free-response').html('Error, intentelo nuevamente');
+                }
+            });
+
+        });
+    });
+      
     function addGift() {
+      
+
+        
       $.ajax({
           method: "POST",
           url: "./be/send-gift.php",
@@ -207,10 +249,6 @@
           $('.gift-response').html('Error de servidor, intentelo nuevamente más tarde');
       });
     }
-
-   function freeGift(idGift) {
-    console.log('free ', idGift)
-   }
 
    function deleteGift(idGift) {
     console.log('delete ', idGift)
