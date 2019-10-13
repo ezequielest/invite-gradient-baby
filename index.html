@@ -306,6 +306,7 @@
     </div>
   </section>
 
+
   <section id="gift" class="gift">
     <div class="container">
       <h2 class="section-heading text-center">Lista de regalos</h2>
@@ -385,7 +386,8 @@
     $("#formAssistence").on("submit", function(event) {
       event.preventDefault();
 
-      var formData = $(this).serialize();
+      var formData = $(this).serialize
+     
       $('.rta').html('Enviando mensaje...');
 
       $.ajax({
@@ -397,7 +399,6 @@
         res = JSON.parse(res)
         if (res.thereIsError == false) {
             $('.rta').html('Mensaje enviado con éxito');
-            ;
         } else {
             $('.rta').html('Error, intentelo nuevamente');
         }
@@ -413,11 +414,15 @@
       event.preventDefault();
 
       var formData = $(this).serialize();
+      var method = '&method=doGift';
+      
+      formData = formData + method;
+      
       $('.gift-response').html('confirmando regalo...');
 
       $.ajax({
           method: "POST",
-          url: "./be/send-gift.php",
+          url: "./be/controller/giftController.php",
           data: formData
         })
       .done(function( res ) {
@@ -425,9 +430,9 @@
         res = JSON.parse(res);
         if (res.thereIsError == false) {
             $('.gift-response').html('Regalo confirmado con exito');
-            setTimeout(() => {
+            /*setTimeout(() => {
               location.reload();
-            }, 2000);
+            }, 2000);*/
         } else {
             $('.gift-response').html('Error, intentelo nuevamente');
         }
