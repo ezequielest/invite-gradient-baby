@@ -45,6 +45,12 @@
 
 <body id="page-top">
 
+  <div class="loading">
+    <div class="load">
+        <hr/><hr/><hr/><hr/>
+    </div>
+  </div>
+  <div class="website" style="display:none">
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -368,6 +374,7 @@
       <p>&copy; Invite 2019 | <a href="http://www.invite.blur.com.ar/">invite.blur.com</a></p>
     </div>
   </footer>
+  </div><!--website-->
 
 
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -378,9 +385,23 @@
   <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
   <script src="./js/vue.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  
   
   <!-- Custom scripts for this template -->
   <script src="js/new-age.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('.loading').fadeOut(500);
+  
+      setTimeout(() => {
+        $('.website').fadeIn(1000);   
+      }, 500);
+     
+    })
+    </script>
+
 
   <script>
     $("#formAssistence").on("submit", function(event) {
