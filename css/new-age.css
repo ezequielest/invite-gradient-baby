@@ -60,6 +60,95 @@ section h2 {
   font-size: 50px;
 }
 
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+}
+
+.loading .load {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /*change these sizes to fit into your project*/
+  width: 100px;
+  height: 100px;
+}
+
+.loading .load hr {
+  border: 0;
+  margin: 0;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  border-radius: 50%;
+  -webkit-animation: spin 2s ease infinite;
+  animation: spin 2s ease infinite;
+}
+
+.loading .load hr:first-child {
+  background-color: #19A68C;
+  -webkit-animation-delay: -1.5s;
+  animation-delay: -1.5s;
+}
+
+.loading .load hr:nth-child(2) {
+  background-color: #F63D3A;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+.loading .load hr:nth-child(3) {
+  background-color: #FDA543;
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+.loading .load hr:last-child {
+  background-color: #193B48;
+}
+
+@-webkit-keyframes spin {
+  0%, 100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  25% {
+    -webkit-transform: translate(160%);
+    transform: translate(160%);
+  }
+  50% {
+    -webkit-transform: translate(160%, 160%);
+    transform: translate(160%, 160%);
+  }
+  75% {
+    -webkit-transform: translate(0, 160%);
+    transform: translate(0, 160%);
+  }
+}
+
+@keyframes spin {
+  0%, 100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  25% {
+    -webkit-transform: translate(160%);
+    transform: translate(160%);
+  }
+  50% {
+    -webkit-transform: translate(160%, 160%);
+    transform: translate(160%, 160%);
+  }
+  75% {
+    -webkit-transform: translate(0, 160%);
+    transform: translate(0, 160%);
+  }
+}
+
 @-webkit-keyframes pulse {
   0% {
     -webkit-transform: scale(0.8);
@@ -638,14 +727,23 @@ section.examples .badges .badge-link img {
     margin-bottom: 20px;
   }
   section.examples .badges i {
-    top: 290px;
     right: 110px;
   }
 }
 
 @media (max-width: 992px) {
+  section.examples .badges img {
+    max-width: 120px;
+  }
   section.examples .badges i {
-    display: none;
+    top: -10px;
+  }
+}
+
+@media (max-width: 390px) {
+  section.examples .badges img {
+    width: 100%;
+    max-width: 255px;
   }
 }
 
