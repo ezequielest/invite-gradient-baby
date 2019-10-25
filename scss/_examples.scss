@@ -60,15 +60,27 @@ section.examples {
             }
 
             i {
-                top: 290px;
                 right: 110px;
             }
         }
     }
     @media(max-width: 992px) {
         .badges { 
+            img {
+                max-width: 120px;
+            }
+
             i {
-                display: none; 
+                top: -10px;
+            }
+        }
+    }
+
+    @media(max-width: 390px) {
+        .badges { 
+            img {
+                width: 100%;
+                max-width: 255px;
             }
         }
     }

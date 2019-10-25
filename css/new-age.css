@@ -727,14 +727,23 @@ section.examples .badges .badge-link img {
     margin-bottom: 20px;
   }
   section.examples .badges i {
-    top: 290px;
     right: 110px;
   }
 }
 
 @media (max-width: 992px) {
+  section.examples .badges img {
+    max-width: 120px;
+  }
   section.examples .badges i {
-    display: none;
+    top: -10px;
+  }
+}
+
+@media (max-width: 390px) {
+  section.examples .badges img {
+    width: 100%;
+    max-width: 255px;
   }
 }
 
